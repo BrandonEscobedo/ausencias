@@ -1,0 +1,23 @@
+<div class="card-container">
+    <div class="card-fields">
+        <div class="card-header">
+            <img src="https://fkakdfz.stripocdn.email/content/guids/CABINET_d3b68819472f4ece19b4af83aeb925a7/images/14421504177408436.png"
+                alt="">
+        </div>
+        <div class="p-field">
+            <label>Numero de empleado</label>
+            <input class="p-inputtext" [(ngModel)]="numeroEmpleado" type="text" pInputText />
+        </div>
+        <div>
+            <div class="p-field">
+                <label>Correo</label>
+                <input class="p-inputtext" [(ngModel)]="correo" type="email" pInputText />
+            </div>
+        </div>
+        <div class="container-buttons-stepper">
+            <p-button label="Iniciar sesión" (onClick)="login()" icon="pi pi-arrow-left" />
+
+        </div>
+    </div>
+</div>
+<p-toast [life]="3000" />

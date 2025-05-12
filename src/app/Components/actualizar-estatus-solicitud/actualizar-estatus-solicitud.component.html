@@ -23,7 +23,7 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <div>
+    <div *ngIf="solicitud()?.estatus== 'Aprobada'">
         <div class="p-field">
             <label for="tipo">Actualizar Estatus</label>
             <p-select id="tipo" [options]="estatus" optionValue="value" [(ngModel)]="estatusValor" optionLabel="name" placeholder="Selecciona un estatus">
@@ -37,7 +37,7 @@
     </div>
     <mat-divider></mat-divider>
 
-    <div>
+    <div *ngIf="solicitud()?.estatus== 'Aprobada'">
         <div class="p-field">
             <p-button label="Cancelar" severity="secondary" />
             <p-button label="Guardar" (onClick)="ActualizarEstatus()" />

@@ -15,10 +15,16 @@ export class SolicitudesService {
   CrearSolicitud(solicitud: any) {
     return this.http.post(this.path + "/CrearSolicitud", solicitud);
   }
-  ObtenerAusenciasEmpleado(idEmpleado: number): Observable<SolicitudLista[]> {
-    return this.http.get<SolicitudLista[]>(`${this.path}/ObtenerAusenciasEmpleado?empleadoId=${idEmpleado}`);
+  ObtenerAusenciasEmpleado(numeroEmpleado: string): Observable<SolicitudLista[]> {
+    return this.http.get<SolicitudLista[]>(`${this.path}/ObtenerAusenciasEmpleado?numeroEmpleado=${numeroEmpleado}`);
   }
   ActualizarEstatus(cambioEstatus: CambioEstatus) {
     return this.http.put(this.path + "/ActualizarEstatus", cambioEstatus);
+  }
+  ObtenerSolicitudPorFolio(folio: string): Observable<SolicitudLista> {
+    return this.http.get<SolicitudLista>(`${this.path}/ObtenerSolicitudesPorFolio?folio=${folio}`);
+  }
+  GetSolicitudesDeJefePendientes() {
+    return this.http.get(this.path + "/GetSolicitudesDeJefePendientes");
   }
 }

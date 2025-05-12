@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
+import { AuthService } from '../../services/auth.service';
 @Component({
     selector: 'app-navbar',
     imports: [Menubar, RouterOutlet],
@@ -11,38 +12,40 @@ import { Menubar } from 'primeng/menubar';
 export class NavbarComponent implements OnInit {
 
     items: MenuItem[] | undefined;
+    constructor(private authService: AuthService) { }
 
     ngOnInit() {
+        const role = this.authService.getRole();
+
         this.items = [
             {
                 label: 'Solicitudes',
                 icon: 'pi pi-home',
                 routerLink: '/solicitudes',
-                items: [
-                    {
-                        label: 'Solicitudes pendientes',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: '/solicitudesPendientes'
-                    },
-
-                ]
             },
-
             {
                 label: 'Crear Solicitud',
                 icon: 'pi pi-star',
                 routerLink: '/crearSolicitud'
             },
             {
-                label: 'Chat',
+                label: 'Generar Token',
                 icon: 'pi pi-star',
-                routerLink: '/chat'
+                routerLink: '/generarToken'
             },
-            {
-                label: 'Mis solicitudes',
-                icon: 'pi pi-star',
-                routerLink: '/crearSolicitud'
-            },
+
         ]
+
+        if (role === 'Empleado') {
+         
+            this.items = this.items.filter(item =>
+                item.label === 'Crear Solicitud' 
+            );
+        }
+        if (role === 'Gerente') {
+            this.items = new Array<MenuItem>();
+
+        }
+
     }
 }

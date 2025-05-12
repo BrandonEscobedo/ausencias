@@ -1,38 +1,122 @@
 <div class="card-container">
-  <div class="card">
-    <form [formGroup]="solicitudForm" (ngSubmit)="onSubmit()">
-      <div class="p-field">
-        <label for="fechaInicio">Id usuario</label>
-        <input class="p-inputtext" formControlName="EmpleadoId" type="number" pInputText />
-      </div>
+  <div class="container-stepper">
 
-      <div class="p-field">
-        <label for="fechaInicio">Fecha de Inicio</label>
-        <p-datepicker id="fechaInicio" formControlName="FechaInicio" dateFormat="yy-mm-dd"></p-datepicker>
-      </div>
+    <p-stepper [(value)]="activeIndex" [linear]="true">
 
-      <div class="p-field">
-        <label for="fechaFin">Fecha de Fin</label>
-        <p-datepicker id="fechaFin" formControlName="FechaFin" dateFormat="yy-mm-dd"></p-datepicker>
-      </div>
+      <p-step-list>
+        <p-step [value]="1"> <span class="step-title-red">Datos del usuario</span>
+        </p-step>
+        <p-step [value]="2"><span class="step-title-red">Formulario</span></p-step>
+        <p-step [value]="3"><span class="step-title-red">Finalizacion</span></p-step>
+      </p-step-list>
+      <p-step-panels>
+        <p-step-panel [value]="1">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div>
+              <div class="card-fields">
+                <div class="p-field">
+                  <label>Numero de empleado</label>
+                  <input class="p-inputtext" [(ngModel)]="numeroEmpleado" type="text" pInputText />
+                </div>
+                <div *ngIf="visible">
+                  <div class="p-field">
+                    <label>Nombres</label>
+                    <input class="p-inputtext" [value]="datosEmpleado.nombres" type="text" disabled="true" pInputText />
+                  </div>
+                  <div class="p-field">
+                    <label>Apellidos</label>
+                    <input class="p-inputtext" [value]="datosEmpleado.apellidos" type="text" disabled="true"
+                      pInputText />
+                  </div>
+                  <div class="p-field">
+                    <label>Cargo</label>
+                    <input class="p-inputtext" [value]="datosEmpleado.cargo" type="text" disabled="true" pInputText />
+                  </div>
+                  <div class="p-field">
+                    <label>Departamento</label>
+                    <input class="p-inputtext" [value]="datosEmpleado.departamento" type="text" disabled="true"
+                      pInputText />
+                  </div>
+                  <div class="p-field">
+                    <label>Correo</label>
+                    <input class="p-inputtext" [value]="datosEmpleado.correo" type="text" disabled="true" pInputText />
+                  </div>
+                </div>
 
-      <div class="p-field">
-        <label for="tipo">Tipo</label>
-        <p-select id="tipo" formControlName="Tipo" [options]="tipos" placeholder="Seleccione un tipo">
-        </p-select>
-      </div>
+                <p-button label="Buscar" icon="pi pi-arrow-right" iconPos="right"
+                  [disabled]="!numeroEmpleado || numeroEmpleado.trim() === '' || botonVisible"
+                  (onClick)="onBuscarUsuario()" />
+              </div>
+              <div class="flex pt-6 justify-end">
+                <p-button label="Continuar" icon="pi pi-arrow-right" iconPos="right" [disabled]="continuarBoton"
+                  (onClick)="activateCallback(2)" />
+              </div>
+            </div>
+          </ng-template>
 
-      <div class="p-field">
-        <label for="comentarios">Comentarios</label>
-        <textarea id="comentarios" formControlName="Comentarios" rows="3" pInputTextarea></textarea>
-      </div>
+        </p-step-panel>
 
-      <div class="p-field">
-        <button pButton type="submit">
-        Enviar
-        </button>
+        <p-step-panel [value]="2">
+          <ng-template #content let-activateCallback="activateCallback">
+            <form [formGroup]="solicitudForm" (ngSubmit)="onSubmit()">
+              <div class="card-fields">
+                <div class="p-field">
+                  <label>Numero de empleado</label>
+                  <input class="p-inputtext" [disabled]="true" [value]="datosEmpleado.numeroEmpleado" type="text"
+                    pInputText />
+                </div>
+                <div class="p-field">
+                  <label for="fechaInicio">Fecha de Inicio</label>
+                  <p-datepicker id="fechaInicio" formControlName="FechaInicio" dateFormat="yy-mm-dd"></p-datepicker>
+                </div>
+                <div class="p-field">
 
-      </div>
-    </form>
+                  <label for="fechaFin">Fecha de Fin</label>\
+                  <div *ngIf="solicitudForm.errors?.['fechaInvalida'] && solicitudForm.touched" class="p-error">
+                    La fecha de fin debe ser igual o posterior a la fecha de inicio.
+                  </div>
+                  <p-datepicker id="fechaFin" formControlName="FechaFin" dateFormat="yy-mm-dd"></p-datepicker>
+                </div>
+                <div class="p-field">
+                  <label for="tipo">Tipo</label>
+                  <p-select id="tipo" formControlName="Tipo" [options]="tipos" placeholder="Seleccione un tipo">
+                  </p-select>
+                </div>
+                <div class="p-field">
+                  <label for="comentarios">Comentarios</label>
+                  <textarea id="comentarios" formControlName="Comentarios" rows="3" pInputTextarea></textarea>
+                </div>
+                <div class="p-field">
+                  <button [disabled]="solicitudForm.invalid" pButton type="submit">
+                    Enviar
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="container-buttons-stepper">
+              <p-button label="Regresar" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="3">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col h-48">
+              <div>
+                <div class="p-field">
+                  <h3>
+                    tu solicitud se creado con exito,
+                    recibiras un correo electronico con la confirmacion de tu solicitud y el folio de la misma.
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-panels>
+    </p-stepper>
+
   </div>
+
 </div>
+<p-toast [life]="2500" />

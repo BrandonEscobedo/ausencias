@@ -31,3 +31,18 @@ export interface CambioEstatus{
     comentarios:string,
     estatus:number
 }
+export class SolicitudModelClass{
+    id: number = 0;
+    empleadoId: number = 0;
+    folio: string = '';
+    empleado: Empleado = {} as Empleado;
+    jefe: Jefe = {} as Jefe;
+    fechaInicio: string = '';
+    fechaFin: string = '';
+    estatus: string = '';
+    tipo: string = '';
+    comentarios: string = '';
+    constructor() {
+        
+    }
+}

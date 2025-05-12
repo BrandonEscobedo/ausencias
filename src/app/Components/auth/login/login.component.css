@@ -3,7 +3,8 @@
     justify-content: center;
     height: 100vh;
     background-color: #f5f5f5;
-  
+    align-items: center;
+    margin: 0 auto;
 }
 
 .card {
@@ -16,42 +17,20 @@
     flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
-
+    margin: 0 auto;
 }
 
 .card-fields {
-    width: 50vw;
+    width: 30vw;
+    height: 60vh;
     padding: 2.5em;
+    margin: 0 auto;
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-   margin: 0 auto;
-}
-
-.container-stepper {
-    width: 80vw;
-    padding: 2.5em;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    color: red;
-    gap: 10px;
-}
-
-.p-step-active .p-step-title {
-    color: red;
-}
-
-::ng-deep .p-step-active .p-step-title {
-    color: red;
-}
-
-.step-title-red {
-    color: black;
-    font-weight: bold;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
 }
 
 .p-field {
@@ -79,16 +58,25 @@ label {
     height: 5em;
     width: fit-content;
 }
-.container-buttons-stepper{
+
+.container-buttons-stepper {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-content: center;
     margin-top: 20px;
 }
-.p-error{
+
+.p-error {
     color: red;
 }
-h3{
+
+h3 {
     color: black;
     font-weight: bold;
+}
+.card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }

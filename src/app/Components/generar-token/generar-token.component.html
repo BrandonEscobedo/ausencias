@@ -1,0 +1,37 @@
+<div class="card-fields">
+    <div class="p-field">
+        <label>Numero de empleado</label>
+        <input class="p-inputtext" [(ngModel)]="numeroEmpleado" type="text" pInputText />
+    </div>
+    <div *ngIf="visible">
+        <div class="p-field">
+            <label>Nombres</label>
+            <input class="p-inputtext" [value]="datosEmpleado.nombres" type="text" disabled="true" pInputText />
+        </div>
+        <div class="p-field">
+            <label>Apellidos</label>
+            <input class="p-inputtext" [value]="datosEmpleado.apellidos" type="text" disabled="true" pInputText />
+        </div>
+        <div class="p-field">
+            <label>Cargo</label>
+            <input class="p-inputtext" [value]="datosEmpleado.cargo" type="text" disabled="true" pInputText />
+        </div>
+        <div class="p-field">
+            <label>Departamento</label>
+            <input class="p-inputtext" [value]="datosEmpleado.departamento" type="text" disabled="true" pInputText />
+        </div>
+        <div class="p-field">
+            <label>Correo</label>
+            <input class="p-inputtext" [value]="datosEmpleado.correo" type="text" disabled="true" pInputText />
+        </div>
+    </div>
+
+
+    <div class="container-buttons-stepper">
+        <p-button label="Buscar" icon="pi pi-arrow-left"
+            [disabled]="!numeroEmpleado || numeroEmpleado.trim() === '' || botonVisible"
+            (onClick)="onBuscarUsuario()" />
+        <p-button *ngIf="continuarBoton" (onClick)="GenerarToken()" label="Continuar" icon="pi pi-arrow-right" iconPos="right" />
+    </div>
+</div>
+<p-toast [life]="3000" />

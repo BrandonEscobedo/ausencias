@@ -11,10 +11,10 @@ import { SolicitudesService } from '../../../services/solicitudes.service';
 })
 export class AusenciasEmpleadoComponent implements OnInit {
   SolicitudesService = inject(SolicitudesService);
-  idEmpleado = input<number>();
+  numeroEmpleado = input<string>();
   ausencias: AusenciasEmpleado[] = [];
   ngOnInit(): void {
-    this.SolicitudesService.ObtenerAusenciasEmpleado(this.idEmpleado() as number).pipe().subscribe({
+    this.SolicitudesService.ObtenerAusenciasEmpleado(this.numeroEmpleado() as string).pipe().subscribe({
       next: (data: any[]) => {
         this.ausencias = data;
         console.log(this.ausencias);

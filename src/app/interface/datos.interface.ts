@@ -10,6 +10,15 @@ export interface Empleado {
   rol: Rol
   jefeId: number
 }
+export interface EmpleadoDatos {
+  id: number
+  numeroEmpleado: string
+  nombres: string
+  apellidos: string
+  cargo: string
+  departamento: string
+  correo: string
+}
 
 export interface Rol {
   id: number

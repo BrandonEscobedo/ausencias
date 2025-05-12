@@ -97,7 +97,7 @@
     <ng-template #header>
         <h2>Ausencias de {{solicitudSeleccionada.empleado.nombres}} {{solicitudSeleccionada.empleado.apellidos}}</h2>
     </ng-template>
-    <app-ausencias-empleado *ngIf="visible" [idEmpleado]="solicitudSeleccionada.empleadoId"></app-ausencias-empleado>
+    <app-ausencias-empleado *ngIf="visible" [numeroEmpleado]="solicitudSeleccionada.empleado.numeroEmpleado"></app-ausencias-empleado>
 
 </p-dialog>
 <p-toast [life]="2500" />

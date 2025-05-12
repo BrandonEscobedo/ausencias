@@ -28,8 +28,8 @@ import { Table } from 'primeng/table';
 export class ListaSolicitudesComponent implements OnInit {
   solicitudes!: SolicitudLista[];
   visible: boolean = false;
-event: any;
-onEvent(event: any) {}
+  event: any;
+  onEvent(event: any) { }
   clear(table: Table) {
     table.clear();
   }
