@@ -1,0 +1,35 @@
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    margin-right: auto;
+}
+
+.container-solicitudes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tipo-solicitud {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex: 2;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.card {
+    margin: 0.9rem;
+}
+
+.p-drawer-right {
+
+    width: 50rem;
+}
+
+::ng-deep .custom-drawer-width {
+    width: 30rem !important;
+    background-color: #1d1d1d;;
+}

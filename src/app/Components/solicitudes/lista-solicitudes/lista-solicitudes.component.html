@@ -1,0 +1,103 @@
+<div class="mb-4">
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
+</div>
+<div class="card">
+    <div class="container-solicitudes">
+        <h3>Todas Solicitudes</h3>
+        <div class="tipo-solicitud">
+            <p-button type="button" icon="pi pi-plus" (click)="solicitud('Todas')" label="Todas" class="mr-2" />
+            <p-button type="button" icon="pi pi-plus" (click)="solicitud('Liberar')" label="Pendientes a liberar"
+                class="mr-2" />
+            <p-button type="button" icon="pi pi-plus" (click)="solicitud('Pendientes')" label="Pendientes"
+                class="mr-2" />
+            <p-button type="button" icon="pi pi-plus" (click)="solicitud('Rechazadas')" label="Rechazadas"
+                class="mr-2" />
+        </div>
+    </div>
+    <p-table #dt2 dataKey="id" selectionMode="single" [metaKeySelection]="metaKey" [(selection)]="selectedNode"
+        (onRowSelect)="nodeSelect($event)" (onRowUnselect)="nodeUnselect($event)" [value]="solicitudes"
+        [paginator]="true" [rows]="5" [first]="first" [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [globalFilterFields]="['folio', 'empleado.numeroEmpleado', 'representative.name', 'status']"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onPage)="pageChange($event)"
+        [rowsPerPageOptions]="[10, 25, 50]">
+        <ng-template #caption>
+            <div class="flex">
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input  type="text" (input)="dt2.filterGlobal($any($event.target)?.value,'contains')"
+                        placeholder="Search keyword" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th style="width:11.11%">Folio</th>
+                <th style="width:11.11%">Numero empleado</th>
+                <th style="width:11.11%">Correo</th>
+                <th style="width:11.11%">Nombres</th>
+                <th style="width:11.11%">Fecha inico</th>
+                <th style="width:11.11%">fecha fin</th>
+                <th style="width:11.11%">Tipo</th>
+                <th style="width:11.11%">Estatus</th>
+                <th style="width:11.11%">Jefe Directo</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-customer let-rowNode>
+            <tr [pSelectableRow]="customer">
+                <td>{{ customer.folio }}</td>
+                <td>{{ customer.empleado.numeroEmpleado }}</td>
+                <td>{{ customer.empleado.correo }}</td>
+                <td>{{ customer.empleado.nombres }} {{customer.empleado.apellidos}}</td>
+                <td>{{ customer.fechaInicio}}</td>
+                <td>{{ customer.fechaFin}}</td>
+                <td>{{ customer.tipo}}</td>
+                <td>
+                    @if(customer.estatus == 'Aprobada'){
+                    <p-tag value="{{ customer.estatus}}" severity="success" />
+                    } @else if(customer.estatus == 'Rechazada'){
+                    <p-tag value="{{ customer.estatus}}" severity="danger" />
+                    } @else if(customer.estatus == 'Pendiente'){
+                    <p-tag value="{{ customer.estatus}}" severity="warning" />
+                    }
+                    @else if(customer.estatus == 'RechazadaRH'){
+                    <p-tag value="Rechazada RH" severity="danger" />
+                    }
+                    @else {
+                    <p-tag value="{{ customer.estatus}}" severity="info" />
+                    }
+                </td>
+                <td>{{ customer.jefe.nombres}} {{customer.jefe.apellidos}}</td>
+            </tr>
+        </ng-template>
+        <ng-template #paginatorleft>
+            <p-button type="button" icon="pi pi-plus" text />
+        </ng-template>
+        <ng-template #paginatorright>
+            <p-button type="button" icon="pi pi-cloud" text />
+        </ng-template>
+    </p-table>
+</div>
+<div class="card flex justify-center">
+    <p-drawer header="Actualizar Estatus" [(visible)]="visible1" position="right" closeOnEscape="false "
+        dismissible="false " styleClass="custom-drawer-width">
+        <app-actualizar-estatus-solicitud [solicitud]="solicitudSeleccionada" (visible)="onVisible()"
+            (cerrarModal)="cerrarModal()"></app-actualizar-estatus-solicitud>
+        <ng-template #footer>
+
+        </ng-template>
+    </p-drawer>
+</div>
+<p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '50rem', height: 'auto' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+    <ng-template #header>
+        <h2>Ausencias de {{solicitudSeleccionada.empleado.nombres}} {{solicitudSeleccionada.empleado.apellidos}}</h2>
+    </ng-template>
+    <app-ausencias-empleado *ngIf="visible" [idEmpleado]="solicitudSeleccionada.empleadoId"></app-ausencias-empleado>
+
+</p-dialog>
+<p-toast [life]="2500" />

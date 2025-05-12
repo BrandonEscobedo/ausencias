@@ -1,0 +1,12 @@
+<div>
+  <h2>Chat con Claude (Anthropic)</h2>
+  <textarea [(ngModel)]="prompt" placeholder="Escribe tu mensaje..."></textarea>
+  <button type="button" (click)="startChat()">Enviar</button>
+
+  <div *ngIf="chatResponse.length">
+    <h3>Respuestas:</h3>
+    <div *ngFor="let response of chatResponse">
+      <p>{{ response }}</p>
+    </div>
+  </div>
+</div>

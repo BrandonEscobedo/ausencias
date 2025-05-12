@@ -1,0 +1,38 @@
+<div class="card-container">
+  <div class="card">
+    <form [formGroup]="solicitudForm" (ngSubmit)="onSubmit()">
+      <div class="p-field">
+        <label for="fechaInicio">Id usuario</label>
+        <input class="p-inputtext" formControlName="EmpleadoId" type="number" pInputText />
+      </div>
+
+      <div class="p-field">
+        <label for="fechaInicio">Fecha de Inicio</label>
+        <p-datepicker id="fechaInicio" formControlName="FechaInicio" dateFormat="yy-mm-dd"></p-datepicker>
+      </div>
+
+      <div class="p-field">
+        <label for="fechaFin">Fecha de Fin</label>
+        <p-datepicker id="fechaFin" formControlName="FechaFin" dateFormat="yy-mm-dd"></p-datepicker>
+      </div>
+
+      <div class="p-field">
+        <label for="tipo">Tipo</label>
+        <p-select id="tipo" formControlName="Tipo" [options]="tipos" placeholder="Seleccione un tipo">
+        </p-select>
+      </div>
+
+      <div class="p-field">
+        <label for="comentarios">Comentarios</label>
+        <textarea id="comentarios" formControlName="Comentarios" rows="3" pInputTextarea></textarea>
+      </div>
+
+      <div class="p-field">
+        <button pButton type="submit">
+        Enviar
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>
